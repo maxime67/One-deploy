@@ -7,4 +7,5 @@ git_branch: master
 app_root: /var/www/{{ app_name }}
 nodejs_version: 20
 api_port: 3000
-vite_api_url: "http://{{ hostvars['haproxy-vm']['ansible_host'] }}/api"
+dns_name: easysetup.fr
+vite_api_url: "http://{{ dns_name }}/api"
