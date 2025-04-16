@@ -1,0 +1,3 @@
+domain_name: easysetup.fr
+app_root: /var/www/{{ app_name }}
+app_name: One-client
