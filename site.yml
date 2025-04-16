@@ -1,4 +1,7 @@
 ---
+- name: Run cleanup
+  import_playbook: playbooks/cleanup.yml
+
 - name: Deploy Applications
   hosts: all
   become: yes

@@ -1,0 +1,95 @@
+---
+- name: Cleanup all middleware packages
+  hosts: all
+  become: yes
+  tasks:
+    - name: Stop and disable HAProxy service
+      systemd:
+        name: haproxy
+        state: stopped
+        enabled: no
+      ignore_errors: yes
+      when: inventory_hostname in groups['haproxy']
+
+    - name: Stop and disable Apache service
+      systemd:
+        name: apache2
+        state: stopped
+        enabled: no
+      ignore_errors: yes
+      when: inventory_hostname in groups['front']
+
+    - name: Kill Node.js processes
+      shell: "pkill -f node || true"
+      ignore_errors: yes
+      when: inventory_hostname in groups['api']
+
+    - name: Remove PM2 processes
+      shell: "pm2 delete all || true"
+      ignore_errors: yes
+      when: inventory_hostname in groups['api']
+
+    - name: Remove installed packages from API servers
+      apt:
+        name:
+          - nodejs
+          - npm
+        state: absent
+        purge: yes
+      when: inventory_hostname in groups['api']
+
+    - name: Remove installed packages from frontend servers
+      apt:
+        name:
+          - nodejs
+          - npm
+          - apache2
+          - libapache2-mod-php
+        state: absent
+        purge: yes
+      when: inventory_hostname in groups['front']
+
+    - name: Remove installed packages from HAProxy servers
+      apt:
+        name:
+          - haproxy
+        state: absent
+        purge: yes
+      when: inventory_hostname in groups['haproxy']
+
+    - name: Remove application directories
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /var/www/client-app
+        - /home/nodejs-app
+        - /root/nodejs-app
+      ignore_errors: yes
+
+    - name: Remove configuration files
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /etc/apache2/sites-available/client-app.conf
+        - /etc/apache2/sites-enabled/client-app.conf
+        - /etc/haproxy/haproxy.cfg
+      ignore_errors: yes
+
+    - name: Clean apt cache
+      apt:
+        autoclean: yes
+
+    - name: Autoremove unused packages
+      apt:
+        autoremove: yes
+        purge: yes
+
+    - name: Restart servers (optional, uncomment if needed)
+      # This is commented out to prevent unnecessary restarts
+      # reboot:
+      #   reboot_timeout: 3600
+      # ignore_errors: yes
+      debug:
+        msg: "Skipping server restart. Uncomment the reboot task if needed."
