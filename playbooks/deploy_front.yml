@@ -3,8 +3,8 @@
   hosts: front
   become: yes
   roles:
-    - roles/apache
     - roles/vuejs
+    - roles/apache
   tasks:
     - name: Build VueJS application
       command: npm run build
