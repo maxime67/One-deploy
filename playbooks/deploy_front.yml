@@ -1,6 +1,6 @@
 ---
 - name: Deploy VueJS application
-  hosts: all
+  hosts: front
   become: yes
   roles:
     - roles/apache
