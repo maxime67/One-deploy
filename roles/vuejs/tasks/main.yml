@@ -4,6 +4,7 @@
     name:
       - apt-transport-https
       - gnupg
+      - git
     state: present
     update_cache: yes
 
