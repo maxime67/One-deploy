@@ -85,11 +85,3 @@
       apt:
         autoremove: yes
         purge: yes
-
-    - name: Restart servers (optional, uncomment if needed)
-      # This is commented out to prevent unnecessary restarts
-      # reboot:
-      #   reboot_timeout: 3600
-      # ignore_errors: yes
-      debug:
-        msg: "Skipping server restart. Uncomment the reboot task if needed."
