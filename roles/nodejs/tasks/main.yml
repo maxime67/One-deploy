@@ -43,7 +43,7 @@
 
 - name: Clone NodeJs repository for user
   git:
-    repo: "{{ repository_url_user }}"
+    repo: "{{ repository_url }}"
     dest: "{{ app_root }}"
     version: "{{ git_branch | default('main') }}"
     force: true
@@ -57,7 +57,7 @@
 
 - name: Create environment files
   template:
-    src: env.user.j2
+    src: env.j2
     dest: "{{ app_root }}/.env"
     owner: "{{ app_user }}"
     group: "{{ app_group }}"
