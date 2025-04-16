@@ -8,5 +8,5 @@
   tasks:
     - name: Restart apache
       service:
-        name: apache
+        name: apache2
         state: restarted
