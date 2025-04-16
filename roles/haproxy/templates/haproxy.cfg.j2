@@ -49,7 +49,7 @@ frontend http-in
 # Backend for API servers
 backend {{ api_backend_name }}
     balance roundrobin
-    option httpchk GET /health
+    option httpchk GET /
     http-request set-path %[path,regsub(^/api/,/)]
     {% for host in groups['api'] %}
     server {{ host }} {{ hostvars[host]['ansible_host'] }}:3000 check
