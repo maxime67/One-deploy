@@ -1,0 +1,35 @@
+---
+- name: Install Apache
+  apt:
+    name:
+      - apache2
+      - libapache2-mod-php
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Enable required Apache modules
+  apache2_module:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - rewrite
+    - headers
+  notify: restart apache
+
+- name: Configure Apache VirtualHost
+  template:
+    src: vhost.conf.j2
+    dest: /etc/apache2/sites-available/{{ app_name }}.conf
+  notify: restart apache
+
+- name: Enable site configuration
+  command: a2ensite {{ app_name }}
+  args:
+    creates: /etc/apache2/sites-enabled/{{ app_name }}.conf
+  notify: restart apache
+
+- name: Ensure default site is disabled
+  command: a2dissite 000-default
+  args:
+    removes: /etc/apache2/sites-enabled/000-default.conf
+  notify: restart apache

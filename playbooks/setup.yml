@@ -1,0 +1,14 @@
+- name: Initial server setup
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install required packages
+      apt:
+        name:
+          - curl
+          - git
+          - nodejs
+          - npm
+        state: present
+      when: ansible_os_family == "Debian"

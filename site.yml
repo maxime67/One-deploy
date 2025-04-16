@@ -1,0 +1,16 @@
+---
+- name: Deploy Documentation Applications
+  hosts: all
+  become: yes
+  
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+  tasks:
+    - name: Cleanup
+      import_playbook: playbooks/cleanup.yml
+
+- import_playbook: playbooks/deploy_api.yml
+#- import_playbook: playbooks/deploy_front.yml

@@ -1,0 +1,35 @@
+- name: Ensure certbot is installed
+  package:
+    name: certbot
+    state: present
+
+- name: Generate SSL certificate using certbot
+  command: >
+    certbot certonly --standalone --agree-tos --no-eff-email
+    --email maxime.heim3@gmail.com
+    --domain easysetup.fr
+  register: certbot_output
+  args:
+    creates: /etc/letsencrypt/live/easysetup.fr/fullchain.pem
+
+- name: Copy private key to the desired location
+  copy:
+    src: /etc/letsencrypt/live/easysetup.fr/privkey.pem
+    dest: /root/nodejs-app/certificates/privkey.pem
+    mode: '0600'
+
+- name: Copy fullchain certificate to the desired location
+  copy:
+    src: /etc/letsencrypt/live/easysetup.fr/fullchain.pem
+    dest: /root/nodejs-app/certificates/fullchain.pem
+    mode: '0600'
+
+- name: Ensure ownership of the certificate files
+  file:
+    path: "/root/nodejs-app/certificates/{{ item }}"
+    owner: root
+    group: root
+    mode: '0600'
+  loop:
+    - privkey.pem
+    - fullchain.pem
