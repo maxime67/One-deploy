@@ -4,7 +4,7 @@ app_user: root
 app_group: root
 app_name: client-app
 git_branch: master
-app_root: /home/{{ app_name }}
+app_root: /var/www/{{ app_name }}
 nodejs_version: 20
 api_port: 3000
 vite_api_url: "http://{{ hostvars['front-vm']['ansible_host'] }}/{{ api_port }}"
