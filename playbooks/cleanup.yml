@@ -1,8 +1,0 @@
----
-- name: Clean up servers
-  hosts: all
-  become: yes
-  vars:
-    script_path: '/tmp/cleanup.sh'
-  roles:
-    - roles/cleanup
