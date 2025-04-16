@@ -6,12 +6,6 @@
     - roles/vuejs
     - roles/apache
   tasks:
-    - name: Build VueJS application
-      command: npm run build
-      args:
-        chdir: "{{ app_root }}"
-      become_user: "{{ app_user }}"
-
     - name: Restart apache
       service:
         name: apache
