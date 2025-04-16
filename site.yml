@@ -8,9 +8,8 @@
       apt:
         update_cache: yes
       when: ansible_os_family == "Debian"
-  tasks:
-    - name: Cleanup
-      import_playbook: playbooks/cleanup.yml
 
+- import_playbook: playbooks/cleanup.yml
+- import_playbook: playbooks/setup.yml
 - import_playbook: playbooks/deploy_api.yml
 #- import_playbook: playbooks/deploy_front.yml
