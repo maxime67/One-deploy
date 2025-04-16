@@ -77,12 +77,12 @@
   args:
     chdir: "{{ app_root }}"
 
-- name: Remove existing app for port conflict
-  ansible.builtin.shell: npx pm2 delete all
-  args:
-    chdir: "{{ app_root }}"
+#- name: Remove existing app for port conflict
+#  ansible.builtin.shell: npx pm2 delete all
+#  args:
+#    chdir: "{{ app_root }}"
 
 - name: Start app using pm2
-  ansible.builtin.shell: npx pm2 start /services/cron.js -f
+  ansible.builtin.shell: npx pm2 start server.js -f
   args:
     chdir: "{{ app_root }}"

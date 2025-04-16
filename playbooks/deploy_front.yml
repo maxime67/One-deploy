@@ -4,6 +4,7 @@
   become: yes
   roles:
     - roles/apache
+    - roles/vuejs
   tasks:
     - name: Build VueJS application
       command: npm run build
