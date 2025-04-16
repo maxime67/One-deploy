@@ -1,0 +1,17 @@
+---
+# HAProxy configuration variables
+haproxy_user: haproxy
+haproxy_group: haproxy
+
+# Frontend configurations
+frontend_http_port: 80
+frontend_https_port: 443
+domain_name: easysetup.fr
+
+# Backend configurations
+api_backend_name: api_backend
+web_backend_name: web_backend
+
+# SSL certificate paths (for future use)
+ssl_cert_path: /etc/ssl/certs/easysetup.fr.pem
+ssl_key_path: /etc/ssl/private/easysetup.fr.key

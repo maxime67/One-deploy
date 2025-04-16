@@ -1,0 +1,6 @@
+---
+- name: Deploy HAProxy Load Balancer
+  hosts: haproxy
+  become: yes
+  roles:
+    - roles/haproxy

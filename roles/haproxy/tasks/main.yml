@@ -1,0 +1,38 @@
+---
+- name: Install HAProxy
+  apt:
+    name: haproxy
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Create HAProxy configuration directories
+  file:
+    path: /etc/haproxy
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Configure HAProxy
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart haproxy
+
+- name: Ensure HAProxy is enabled and started
+  service:
+    name: haproxy
+    state: started
+    enabled: yes
+
+- name: Configure sysctl for HAProxy
+  sysctl:
+    name: net.ipv4.ip_nonlocal_bind
+    value: '1'
+    state: present
+    reload: yes
+  notify: restart haproxy

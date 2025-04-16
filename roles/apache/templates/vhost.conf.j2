@@ -2,6 +2,11 @@
     ServerName {{ domain_name }}
     DocumentRoot {{ app_root }}/dist
 
+    # Set headers for proper forwarding with HAProxy
+    ProxyPreserveHost On
+    RequestHeader set X-Forwarded-Proto "http"
+    RequestHeader set X-Forwarded-Port "80"
+
     <Directory {{ app_root }}/dist>
         Options -Indexes +FollowSymLinks
         AllowOverride All

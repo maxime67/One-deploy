@@ -14,6 +14,9 @@
   with_items:
     - rewrite
     - headers
+    - proxy
+    - proxy_http
+    - remoteip
   notify: restart apache
 
 - name: Configure Apache VirtualHost
