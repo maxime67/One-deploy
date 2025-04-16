@@ -3,7 +3,7 @@ repository_url: https://github.com/maxime67/ONE-api
 app_user: root
 app_group: root
 app_name: nodejs-app
-git_branch: main
+git_branch: master
 app_root: /home/{{ app_name }}
 nodejs_version: 20
 database_url: mongodb://ykjyuk5k5uj5lk565665kg65k665k:rtjryj5t4yj654654j56t65gjn5fy65j65fy5j65hfj65f5yh@192.168.1.19

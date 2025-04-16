@@ -45,7 +45,7 @@
   git:
     repo: "{{ repository_url }}"
     dest: "{{ app_root }}"
-    version: "{{ git_branch | default('main') }}"
+    version: "{{ git_branch | default('master') }}"
     force: true
   become_user: "{{ app_user }}"
 
