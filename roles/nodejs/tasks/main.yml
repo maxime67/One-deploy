@@ -80,10 +80,10 @@
 ######
 # I don't know why but this return error code using ansible, not manually, precedent task is maybe redondant
 ######
-- name: Remove existing app for port conflict
-  ansible.builtin.shell: npx pm2 delete all
-  args:
-    chdir: "{{ app_root }}"
+#- name: Remove existing app for port conflict
+#  ansible.builtin.shell: npx pm2 delete all
+#  args:
+#    chdir: "{{ app_root }}"
 
 - name: Start app using pm2
   ansible.builtin.shell: npx pm2 start server.js -f
