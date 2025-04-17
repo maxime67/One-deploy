@@ -2,5 +2,8 @@
 - name: Deploy VueJS application
   hosts: api
   become: yes
+  vars_files:
+    - group_vars/vault.yml
+    - group_vars/all.yml
   roles:
     - roles/nodejs
