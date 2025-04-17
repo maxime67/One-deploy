@@ -2,9 +2,6 @@
 - name: Deploy VueJS application
   hosts: front
   become: yes
-  vars_files:
-    - group_vars/vault.yml
-    - group_vars/all.yml
   roles:
     - roles/vuejs
     - roles/apache

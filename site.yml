@@ -3,9 +3,6 @@
 - name: Deploy Applications
   hosts: all
   become: yes
-  vars_files:
-    - group_vars/vault.yml
-    - group_vars/all.yml
 
   pre_tasks:
     - name: Update apt cache
