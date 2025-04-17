@@ -1,17 +1,19 @@
 ---
-- name: Run cleanup
-  import_playbook: playbooks/cleanup.yml
 
 - name: Deploy Applications
   hosts: all
   become: yes
-  
+  vars_files:
+    - group_vars/vault.yml
+    - group_vars/all.yml
+
   pre_tasks:
     - name: Update apt cache
       apt:
         update_cache: yes
       when: ansible_os_family == "Debian"
 
+- import_playbook: playbooks/cleanup.yml
 - import_playbook: playbooks/deploy_haproxy.yml
 - import_playbook: playbooks/deploy_api.yml
 - import_playbook: playbooks/deploy_front.yml
