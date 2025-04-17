@@ -23,12 +23,12 @@ pipeline {
                 steps {
                     withCredentials([string(credentialsId: 'ansible-vault-password', variable: 'VAULT_PASS')]) {
                         sh """
-                        echo \${VAULT_PASS} > .vault_pass
-                        chmod 600 .vault_pass
+                        echo \${VAULT_PASS} > .vault_pass.txt
+                        chmod 600 .vault_pass.txt
 
-                        ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_SITE_YML_PATH} --vault-password-file .vault_pass --flush-cache -v
+                        ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_SITE_YML_PATH} --vault-password-file .vault_pass.txt --flush-cache -v
 
-                        rm -f .vault_pass
+                        rm -f .vault_pass.txt
                         """
                     }
                 }
