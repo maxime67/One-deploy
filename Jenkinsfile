@@ -14,8 +14,7 @@ pipeline {
                     string(credentialsId: 'ansible-user', variable: 'ANSIBLE_USER'),
                     string(credentialsId: 'database-url', variable: 'DATABASE_URL'),
                     string(credentialsId: 'ansible-ssh-password', variable: 'ANSIBLE_SSH_PASSWORD'),
-                    string(credentialsId: 'jwt-secret', variable: 'JWT_SECRET'),
-                    string(credentialsId: 'ansible-vault-password', variable: 'VAULT_PASS')
+                    string(credentialsId: 'jwt-secret', variable: 'JWT_SECRET')
                 ]) {
                     sh """
                     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_SITE_YML_PATH} --flush-cache -v -e "database_url=${DATABASE_URL} jwt_secret=${JWT_SECRET} ansible_user=${ANSIBLE_USER} ansible_ssh_pass=${ANSIBLE_SSH_PASSWORD}"
