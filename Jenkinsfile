@@ -26,7 +26,7 @@ pipeline {
                         echo \${VAULT_PASS} > .vault_pass.txt
                         chmod 600 .vault_pass.txt
 
-                        ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_SITE_YML_PATH} --vault-password-file .vault_pass.txt --flush-cache -v
+                        ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_SITE_YML_PATH} --vault-password-file .vault_pass.txt --flush-cache -v -e "ansible_user=${ANSIBLE_USER} ansible_ssh_pass=${ANSIBLE_SSH_PASSWORD}"
 
                         rm -f .vault_pass.txt
                         """
