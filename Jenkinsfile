@@ -12,7 +12,8 @@ pipeline {
             steps {
                 withCredentials([
                     string(credentialsId: 'ansible-user', variable: 'ANSIBLE_USER'),
-                    string(credentialsId: 'database-url', variable: 'DATABASE_URL'),
+//                     USING INTEG DATABASE_URL
+                    string(credentialsId: 'database-url-integ', variable: 'DATABASE_URL'),
                     string(credentialsId: 'ansible-ssh-password', variable: 'ANSIBLE_SSH_PASSWORD'),
                     string(credentialsId: 'jwt-secret', variable: 'JWT_SECRET')
                 ]) {
